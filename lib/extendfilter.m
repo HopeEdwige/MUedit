@@ -26,13 +26,12 @@ function [PulseT, distime] = extendfilter(EMG, EMGmask, PulseT, distime, idx, fs
         spikes2 = (spikes1 - idx(1) + 1);
         exFactor1 = round(nbextchan/size(EMG,1));
         eSIG = extend(EMG,exFactor1);
-        ReSIG = eSIG*eSIG'/length(eSIG);
-        iReSIGt = pinv(ReSIG);
         [E, D] = pcaesig(eSIG);
-        [wSIG, ~, dewhiteningMatrix] = whiteesig(eSIG, E, D);
+        [wSIG, ~, ~] = whiteesig(eSIG, E, D);
         MUFilters = sum(wSIG(:,spikes2),2);
+        MUFilters = MUFilters/norm(MUFilters);
         
-        Pt = ((dewhiteningMatrix * MUFilters)' * iReSIGt) * eSIG; % Update the pulse train
+        Pt = MUFilters' * wSIG; % Update the pulse train on peeloff-cleaned whitened signal
         Pt= Pt(1:size(EMG,2));
         Pt([1:round(0.1*fsamp) end-round(0.1*fsamp):end]) = 0; % Remove the edges
         Pt = Pt .* abs(Pt); % Normalized and update the pulse train

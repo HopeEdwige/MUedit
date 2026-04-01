@@ -1118,6 +1118,7 @@ classdef MUedit_exported < matlab.apps.AppBase
             end
 
             MUFilters = sum(wSIG(:,spikes2),2);
+            MUFilters = MUFilters/norm(MUFilters);
 
             Pt = MUFilters' * wSIG; % Update the pulse train on peeloff-cleaned whitened signal
             Pt= Pt(1:size(EMG,2));
