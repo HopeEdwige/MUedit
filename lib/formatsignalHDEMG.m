@@ -1,13 +1,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % To get the 2d coordinates of EMG channels over the grid
 % To check the EMG signals (automatic or visual)
-
+%
 % Input: 
 % signal: row-wise signal
 % gridname: name of the OTB grid of electrodes
 % fsamp: sampling frequency of the signal
 % check EMG: 1 = Visual checking of EMG channels
-
+%
 % Output:
 % coordinates: x and y coordinates of each electrode
 % IED: inter electrode distance
@@ -214,15 +214,21 @@ for i = 1:length(gridname)
     
     % Visual checking of EMG signals by column
     if checkEMG == 1
+        t = (0 : size(signal, 2) - 1) / fsamp;
         ch1 = 1;
         for c = 1:size(ElChannelMap,2)
             figure;
             lincol = colormap(turbo(size(ElChannelMap,1)));
             for r = 1:size(ElChannelMap,1)
                 if ch1 < length(discardChannelsVec{i}) + 1
-                    plot(signal(ch,:)/max(signal(ch,:)) + r, 'Color', lincol(r,:), 'LineWidth', 1)
+                    if max(signal(ch,:)) > 0
+                        plot(t, signal(ch,:)/max(signal(ch,:)) + r, 'Color', lincol(r,:), 'LineWidth', 1)
+                    else
+                        plot(t, zeros(1,size(signal,2)) + r, 'Color', lincol(r,:), 'LineWidth', 1)
+                    end
                     grid on
                     hold on
+                    xlim([t(1) t(end)]);
                     ylim([0 size(ElChannelMap,1)+1])
                     ch = ch+1;
                     ch1 = ch1 + 1;
@@ -249,3 +255,16 @@ for i = 1:length(gridname)
     end  
 end
 end
+
+
+% Revision history:
+%{
+2026-01-30 / H. Haffad
+    Fix incorrect electrode pinout for HD08MM1305 and HD04MM1305 grids.
+2026-02-15 / H. Haffad
+    Refactor function help block.
+    Add bandpass filter previously announced but not applied.
+2026-04-07 / H. Haffad
+    Fix x-axis displaying sample indices instead of time in seconds.
+    Fix division by zero on dead channels (max <= 0).
+%}
