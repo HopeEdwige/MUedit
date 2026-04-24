@@ -14,12 +14,10 @@ A new version of MUedit is available at https://github.com/simonavrillon/MUedit2
 # Citation and technical support:
 
 For technical assistance and support, please contact:
-Dr. Simon Avrillon
- / Sir Michael Uren Hub
- / Imperial College London
- / 86 Wood Ln
- / London W12 0BZ
- / E-mail address: s.avrillon@imperial.ac.uk
+Simon Avrillon
+ / Research fellow
+ / Nantes University
+ / E-mail address: simon.avrillon@univ-nantes.fr
 
 If you use MUedit in your experimental setting, please cite the following preprint.
 >	Avrillon, S., Hug, F., Baker, S.N., Gibbs, C., and Farina, D. (2024). Tutorial on MUedit: An open-source software for identifying and analysing the discharge timing of motor units from electromyographic signals. J Electromyogr Kinesiol 77, 102886. 10.1016/j.jelekin.2024.102886.
