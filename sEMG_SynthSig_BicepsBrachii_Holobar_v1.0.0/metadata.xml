@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:creator>Holobar, Aleš</dc:creator>
+  <dc:contributor>Divjak, Matjaž</dc:contributor>
+  <dc:date>2024-04-06</dc:date>
+  <dc:description>&amp;lt;p&amp;gt;This dataset contains 4 examples of synthetic high density surface EMG signals of the Biceps Brachii muscle and results of their decomposition into separate motor unit activity. It is intended as a demonstration of the DEMUSE Tool software for sEMG decomposition and as a basis for practical example of dataset preparation for the HybridNeuro project webinar on Data management and ethics (https://www.hybridneuro.feri.um.si/results.html#webinars). Two sets of data are included: the raw simulated sEMG signals and the results of decomposition of those signals with the DEMUSE Tool.&amp;lt;/p&amp;gt;</dc:description>
+  <dc:identifier>https://doi.org/10.5281/zenodo.10936952</dc:identifier>
+  <dc:identifier>https://zenodo.org/records/10936952</dc:identifier>
+  <dc:language xsi:type="http://purl.org/dc/terms/ISO639-2">eng</dc:language>
+  <dc:publisher>Zenodo</dc:publisher>
+  <dc:rights>info:eu-repo/semantics/openAccess</dc:rights>
+  <dc:rights>Creative Commons Zero v1.0 Universal</dc:rights>
+  <dc:rights>https://creativecommons.org/publicdomain/zero/1.0/legalcode</dc:rights>
+  <dc:subject>surface high density electromyogram</dc:subject>
+  <dc:subject>HDEMG</dc:subject>
+  <dc:subject>decomposition</dc:subject>
+  <dc:subject>motor unit</dc:subject>
+  <dc:subject>DEMUSE</dc:subject>
+  <dc:subject>simulation</dc:subject>
+  <dc:subject>biceps brachii</dc:subject>
+  <dc:subject>dataset</dc:subject>
+  <dc:title>Short example of Biceps Brachii muscle surface HDEMG decomposition using the DEMUSE Tool</dc:title>
+  <dc:type>info:eu-repo/semantics/other</dc:type>
+  
+  <version>1.0.0</version>
+  <dc:format>Matlab</dc:format>
+  <dc:source>HybridNeuro project webinar "Data management and ethics"</dc:source>
+  <dc:source>https://www.hybridneuro.feri.um.si/results.html#webinars</dc:source>
+  <dc:relation>Hybrid neuroscience based on cerebral and muscular information for motor rehabilitation and neuromuscular disorders</dc:relation>
+  <dc:relation>https://cordis.europa.eu/project/id/101079392</dc:relation>
+  <dc:relation>https://www.hybridneuro.feri.um.si</dc:relation>
+  <dc:coverage>Maribor, Slovenia</dc:coverage>
+  <dc:coverage>April 3rd 2024</dc:coverage>
+</oai_dc:dc>

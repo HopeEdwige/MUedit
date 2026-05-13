@@ -1,39 +1,118 @@
-# MUedit
+# MUedit (2.0)
 
-MUedit is a Matlab app that decomposes electromyographic (EMG) signals recorded from multiple electrodes into individual motor unit pulse trains using fast independent component analysis (fastICA). You can easily adjust the parameters of the algorithm to the specificity of your experimental settings. After the decomposition, you can display and edit the output of the fastICA, i.e., the motor unit pulse trains.
-
-## Getting started
-
-[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=simonavrillon/MUedit&project=https://github.com/simonavrillon/MUedit/blob/main/MUedit.prj)
-
-We provide a step-by-step protocol (User_manual.pdf) to facilitate the implementation of MUedit in any experimental settings. You can also read our paper that describes the method, the main steps of the experiments, and the capabilities of the app (https://pubmed.ncbi.nlm.nih.gov/38761514/).
-
-You can download the data presented in the paper at https://figshare.com/projects/Data_for_MUedit/172314
+Decomposes high-density EMG signals into motor unit pulse trains.
 
 ## Status
 
-A new version of MUedit is available at https://github.com/simonavrillon/MUedit2. While the Matlab version will still be maintained, future features will be prioritarily implemented in this new Python/JavaScript version. We welcome any contributions to make the Matlab version of MUedit useful for the wider community.
+This software is functional and ready for use. The `adapt_decomp` feature still requires fine tuning and remains in **beta**. We continue to actively maintain and update these tools in line with the advancements of our research projects, and we welcome any contributions to make them useful for the wider community.
 
-## Related versions
+## Features
 
-A version of the decomposition algorithm coded with Python (Python 3.9.15) by Ciara Gibbs (ciara.gibbs18@imperial.ac.uk) is available at https://github.com/ciaragibbs/MUEdit_Python
+- High-density EMG decomposition into motor unit pulse trains
+- Adaptive decomposition workflows (via `adapt_decomp`)
+- Web-based interface with FastAPI backend and JavaScript frontend
+- Cross-platform launchers (macOS/Linux and Windows)
+- Interactive editing of decomposed motor units
+- BIDS-compliant export of raw EMG and decomposition results
 
-## Citation
+## Supported Input Formats
 
-If you use MUedit in your experimental setting, please cite the following paper:
+| Format | Extension | Description |
+|---|---|---|
+| MATLAB | `.mat` | v5 and v7.3 (HDF5) signal structs |
+| OTB+ | `.otb+` | OT Biolab+ archive (tar/zip with XML + `.sig`) |
+| OTB4 | `.otb4` | OT Biolab4 proprietary binary format |
+| BIDS EMG | `.bdf`, `.edf` | BIDS-formatted recordings with `_emg_channels.tsv` sidecar |
+| Decomposition | `.npz` | Saved decomposition output (for editing) |
 
-> Avrillon, S., Hug, F., Baker, S.N., Gibbs, C., and Farina, D. (2024). Tutorial on MUedit: An open-source software for identifying and analysing the discharge timing of motor units from electromyographic signals. J Electromyogr Kinesiol 77, 102886. 10.1016/j.jelekin.2024.102886.
+For BIDS input, point to either the `*_emg.bdf/.edf` file directly or the `emg/` directory. The loader reads all grids and auxiliary channels defined in the accompanying `*_emg_channels.tsv`.
 
-## Support
+## Requirements
 
-The Matlab version of MUedit is mainly maintained by Paul Kaufmann ([@pauk98](https://github.com/pauk98)) and Simon Avrillon.
+- Python 3.11+
+- Conda (Anaconda or Miniconda)
 
-For technical assistance and support, please contact:
+## Quick Start
 
-Paul Kaufmann  
-PhD student, University Côte d'Azur  
-E-mail: paul.kaufmann@etu.univ-cotedazur.fr
+1. Create and activate the conda environment:
+```bash
+conda env create -f environment.yml
+conda activate MUedit
+```
 
-Simon Avrillon  
-Research fellow, Nantes University  
-E-mail: simon.avrillon@univ-nantes.fr
+2. Install MUedit in editable mode:
+```bash
+pip install -e .
+```
+
+3. Launch the app from the repository root:
+
+macOS / Linux:
+```bash
+./scripts/run_MUedit.sh
+```
+
+Windows (PowerShell):
+```powershell
+.\scripts\run_MUedit.ps1
+```
+
+The launcher starts:
+- Backend API on `http://localhost:8000`
+- Frontend on `http://localhost:8080`
+
+The browser opens automatically unless disabled via env var.
+
+Windows first-time setup (if script execution is blocked):
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+## Configuration
+
+| Variable | Default | Description |
+|---|---|---|
+| `MUEDIT_HOST` | `0.0.0.0` | API bind host |
+| `MUEDIT_BACKEND_PORT` | `8000` | API port |
+| `MUEDIT_FRONTEND_PORT` | `8080` | Frontend port |
+| `MUEDIT_OPEN_BROWSER` | `1` | Set to `0` to skip auto-opening browser |
+
+Example (macOS/Linux):
+```bash
+MUEDIT_BACKEND_PORT=9000 MUEDIT_FRONTEND_PORT=9001 MUEDIT_OPEN_BROWSER=0 ./scripts/run_MUedit.sh
+```
+
+## CLI Entrypoints
+
+After installation, MUedit exposes:
+
+- `muedit-api` — starts the FastAPI backend
+- `muedit-decompose` — runs decomposition from the terminal
+
+## Verify Installation
+
+With MUedit running:
+
+1. Open `http://localhost:8080` in a browser.
+2. Check backend health:
+```bash
+curl http://localhost:8000/api/v1/health
+```
+
+## Troubleshooting
+
+- `python: command not found` — activate the conda env before launching.
+- Port already in use — set `MUEDIT_BACKEND_PORT` / `MUEDIT_FRONTEND_PORT` to free ports.
+- Browser does not open automatically — open `http://localhost:<MUEDIT_FRONTEND_PORT>` manually.
+
+## Documentation
+
+- User guide: [docs/user-guide.md](docs/user-guide.md)
+- Saved files reference: [docs/saved-files.md](docs/saved-files.md)
+- Loader registry guide: [docs/loader-registry.md](docs/loader-registry.md)
+
+## Acknowledgment
+
+This project includes code from `adapt_decomp` (see `python/src/adapt_decomp`) for adaptive decomposition workflows.
+Original author: Irene Mendez Guerra
+Original repository: https://github.com/imendezguerra/adapt_decomp
